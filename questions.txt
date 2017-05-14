@@ -1,0 +1,4 @@
+0. The dimensions range from the minimum of 3x3 up to 9x9
+1. The board is represented by a Multi-Dimensional integer Array. Syntax type name[size1][size2]...[size n].
+2. The greet() function is being used. It consists of a clear function (clears up terminal), a printf function (prints greeting) and a usleep function (suspends execution of x milisec.).
+3. Init(), draw(), move(), won()
