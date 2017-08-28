@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+
+import sys
+import helpers
+import os
+
+from analyzer import Analyzer
+from termcolor import colored
+
+def main():
+
+    tweets = helpers.get_user_timeline(screen_name, count=50)
+
+    if tweets is None:
+        print('No tweets for @',screen_name,'.',sep='')
+        sys.exit(1)
+
+    results = []
+
+    positives = os.path.join(sys.path[0], "positive-words.txt")
+    negatives = os.path.join(sys.path[0], "negative-words.txt")
+
+    # instantiate analyzer
+    analyzer = Analyzer(positives, negatives)
+
+    # analyze word
+
+    for i in range(len(tweets)):
+        score = analyzer.analyze(tweets[i])
+        results.append(score)
+        if score > 0.0:
+            print(colored('{:=2d}'.format((results[i])),'green'),colored(tweets[i], "green"))
+        elif score < 0.0:
+            print(colored('{:=2d}'.format((results[i])),'red'),colored(tweets[i], "red"))
+        else:
+            print(colored('{:=2d}'.format((results[i])),'yellow'), colored(tweets[i], "yellow"))
+
+if __name__ == "__main__":
+    if(len(sys.argv) != 2):
+        print('Usage: ./tweets @screen_name')
+        sys.exit(1)
+    screen_name = sys.argv[1]
+    main()
+
+# Complete the implementation of main in tweets in such a way that program
+
+# accepts one and only one command-line argument, the screen name for a user on Twitter,
+
+# queries Twitter’s API for a user’s most recent 50 tweets,
+
+# analyzes the sentiment of each of those tweets, and
+
+# outputs each tweet’s score and text, colored in green if positive, red if negative, and yellow otherwise.
+
+
+#use the helpers and analyzer py to get tweets and analyze them
+# use this URL : https://www.toptal.com/python/python-class-attributes-an-overly-thorough-guide
+
+
+# Look at smile for inspiration!
+
+# Because tweets doesn’t end in .py, CS50 IDE won’t know it’s Python code, so syntax highlighting won’t be enabled by default. With the file open in a tab, change Text to Python in the tab’s bottom-right corner to enable.
