@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block title %}
+    Index
+{% endblock %}
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+{% block main %}
+    <form action="{{ url_for('index') }}" method="post">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                   {% for message in messages %}
+                   <li<{{ message }}</li>
+                   {% endfor %}
+                </ul>
+             {% endif %}
+        {% endwith %}
+        <table class="table table-striped">
+            <TR>
+               <th><b>Symbol</b></th>
+               <th><b>Name</b></th>
+               <th><b>Shares</b></th>
+               <th><b>Price</b></th>
+               <th><b>TOTAL</b></th>
+            </TR>
+            {% for i in stocks %}
+                <TR>
+                   <TD>{{i.symbol}}</TD>
+                   <TD>{{i.name}}</TD>
+                   <TD>{{i.shares}}</TD>
+                   <TD>{{i.price| usd}}</TD>
+                   <TD>{{i.total| usd}}</TD>
+                </TR>
+            {% endfor %}
+                <TR>
+                    <TD>Cash</TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD></TD>
+                    <TD>{{cash[0]['cash'] | usd}}</TD>
+                </TR>
+                <TR>
+                    <TD colspan="4"></TD>
+                    <TD><b>{{total | usd}}</b></TD>
+                </TR>
+        </table>
+         <a href="{{ url_for('topup') }}">Do you want to top up your Balance?</a>
+    </form>
+{% endblock %}
