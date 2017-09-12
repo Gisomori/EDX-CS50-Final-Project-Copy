@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Top up
+{% endblock %}
+
+{% block main %}
+    <form action="{{ url_for('topup') }}" method="post">
+                <input autocomplete="off" autofocus class="form-control" name="balance" placeholder="Insert Amount of Cash" type="text"/>
+                <button class="btn btn-default" type="submit">Topup</button>
+            </div>
+    </form>
+{% endblock %}

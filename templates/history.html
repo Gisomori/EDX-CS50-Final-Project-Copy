@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %}
+    Transaction History
+{% endblock %}
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+{% block main %}
+    <form action="{{ url_for('history') }}" method="post">
+        <table class="table table-striped">
+            <TR>
+               <th><b>Transaction ID</b></th>
+               <th><b>Name</b></th>
+               <th><b>Price</b></th>
+               <th><b>Share Amount</b></th>
+               <th><b>Symbol</b></th>
+               <th><b>timestamp</b></th>
+               <th><b>Total Value of Transaction</b></th>
+               <th><b>Transaction Type</b></th>
+               <th><b>Buyer ID</b></th>
+            </TR>
+            {% for i in transactions %}
+                <TR>
+                   <TD>{{i.id}}</TD>
+                   <TD>{{i.name}}</TD>
+                   <TD>{{i.price| usd}}</TD>
+                   <TD>{{i.shares}}</TD>
+                   <TD>{{i.symbol}}</TD>
+                   <TD>{{i.timestamp}}</TD>
+                   <TD>{{i.total_transaction}}</TD>
+                   <TD>{{i.type}}</TD>
+                   <TD>{{i.userid}}</TD>
+                </TR>
+            {% endfor %}
+        </table>
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Registration Sucess
+{% endblock %}
+
+{% block main %}
+    <form action="{{ url_for('reg_sucess') }}" method="post">
+        <fieldset>
+            <div class="form-group">
+                Congrats! You are now registered :)
+            </div>
+        </fieldset>
+    </form>
+{% endblock %}
