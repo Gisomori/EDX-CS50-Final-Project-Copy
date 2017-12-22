@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <!-- http://getbootstrap.com/ -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+        <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+        <meta charset="utf-8"/>
+        <meta content="initial-scale=1, width=device-width" name="viewport"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <script src="{{ url_for('static', filename='interface.js') }}"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <title>Welcome to RFSC!</title>
+    </head>
+    <body>
+        {% if get_flashed_messages() %}
+            <header>
+                <div class="alert alert-info" role="alert" id = 'top_alert'>
+                    {{ get_flashed_messages() | join(" ") }}
+                </div>
+            </header>
+        {% endif %}
+        <div class="container">
+            <div class="page-header">
+                <h1>
+                    Welcome to the RSS Feed Sentiment Crawler
+                    <small>{% block subtext %}{% endblock %}</small>
+                </h1>
+            </div>
+                This app allows you to crawl through RSS URL and outputs an analysis on their sentiment </br>
+                and given topics in the articles.</br>
+                </br>
+                It is designed to analyze News Articles and it supports at this stage only the English language. </br>
+                Each run of analysis takes up to approx. 2 minutes. Depending on the amount of articles included in the RSS.</br>
+                </br>
+                Some RSS links link nowadays to videos. Those are being ignored, as they do not provide text for analysis.</br>
+                </br>
+                Happy analyzing!
+                <form action="{{ url_for('index') }}" method ="post">
+                    <div class="form-group">
+                        <!--<p><input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="preselect"> Pick from a list of preselected RSS Feeds </p>-->
+                        <p><input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="rss" value ="rss"> You've got an RSS Link </p>
+                        <p><input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="crawl" value = "crawl"> Crawl URL for RSS Link </p>
+                    </div>
+                    <div id="ifpreselect" style="visibility:hidden">
+                        Go ahead and pick a list of existing RSS feeds <input type='text' id='preselectrss' name='insert_preselect'>
+                    </div>
+                    <div id="ifrss" style="visibility:hidden">
+                        <input type='text' id='knownrss' name='insert_rss' placeholder='Insert known RSS link       '>
+                        <button class = "btn btn-default" type = "submit">Crawl known RSS URL & Analyze</button>
+                    </div>
+                    <div id="ifurl" style="visibility:hidden">
+                        <input type='text' id='urlcrawl' name='insert_url' placeholder='Insert URL to crawl for RSS'>
+                        <button class = "btn btn-default" type = "submit">Crawl URL for RSS URL & Analyze</button>
+                    </div>
+                </form>
+            {% block body %}{% endblock %}
+        </div>
+
+    </body>
+</html>
