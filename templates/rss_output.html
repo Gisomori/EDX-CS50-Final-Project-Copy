@@ -1,0 +1,69 @@
+
+{% extends "layout.html" %}
+{% block title %}
+    Finished Analyzing
+{% endblock %}
+{% block body %}
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+
+
+<form action="{{ url_for('index') }}" method="post">
+      <h1>Analyzing RSS with following URL: </br><a href= {{inputted_url}} target="_blank">{{ inputted_url }}</a></h1>
+        </br>
+        </br>
+        </br>
+        <h1>Sentiment</h1>
+        </br>
+        </br>
+        </br>
+        <h2>The two below pie charts depict the sentiment found in the articles content and title.</h2>
+        <h2>They show the distribution between positive, neutral and negative articles & titles:</h2>
+        {{ title_chart | safe }}
+        {{ content_chart | safe }}
+        </br>
+        <h2>The boxplot below shows the overall distribution of scores of the found content & title.</h2>
+        <h2>How negative/positive/neutral are the articles truly? Are there any outliers? Do they cluster around each other?</h2>
+        {{ scoring_boxplot | safe }}
+        </br>
+        </br>
+        </br>
+        <h1>Classification</h1>
+        </br>
+        </br>
+        </br>
+        <h2>The below two pie charts show the overall distribution of classifications identified.</h2>
+        {{ category_title_chart | safe }}
+        {{ category_content_chart | safe }}
+        </br>
+        <h2>The below boxplot shows the score distribution per classification for content and title separately.</h2>
+        {{ title_cat_boxplot | safe }}
+        {{ content_cat_boxplot | safe }}
+        </br>
+        </br>
+        </br>
+        <h1>Articles quick view</h1>
+        </br>
+        </br>
+        </br>
+        <h2> Most positive Article found based on content sentiment score: </h2>
+        {{ posit_example | safe }}
+        <h2> Most negative Article found based on content sentiment score: </h2>
+        {{ negat_example | safe }}
+        </br>
+        <h2> Most positive Article found based on title sentiment score: </h2>
+        {{ posit_example_t | safe }}
+        <h2> Most negative Article found based on title sentiment score: </h2>
+        {{ negat_example_t | safe }}
+        </br>
+        </br>
+        </br>
+        <h1>Articles in detail</h1>
+        </br>
+        </br>
+        </br>
+        <h2> All articles observed </h2>
+        {{ table | safe }}
+
+
+</form>
+{% endblock %}
